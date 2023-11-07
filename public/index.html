@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Audio Test</title>
+  </head>
+
+  <body>
+    <button id="play" disabled>Play audio</button>
+
+    <input type="checkbox" id="reconstruct" />
+    <label for="reconstruct">Reconstruct audio element on each click?</label>
+
+    <script>
+      const playButton = document.getElementById("play");
+      const reconstructInput = document.getElementById("reconstruct");
+
+      let shouldReconstruct = reconstructInput.checked;
+      reconstructInput.addEventListener("change", () => {
+        shouldReconstruct = reconstructInput.checked;
+      });
+
+      const audio = new Audio(
+        "https://d23gte8u9xd7kn.cloudfront.net/practice-sound-effects/countdown-bell.mp3"
+      );
+
+      audio.addEventListener("canplaythrough", () => {
+        playButton.disabled = false;
+      });
+
+      playButton.addEventListener("click", () => {
+        if (shouldReconstruct) {
+          const audio = new Audio(
+            "https://d23gte8u9xd7kn.cloudfront.net/practice-sound-effects/countdown-bell.mp3"
+          );
+          audio.addEventListener("canplaythrough", () => {
+            audio.play();
+          });
+        } else {
+          audio.currentTime = 0;
+          audio.play();
+        }
+      });
+    </script>
+  </body>
+</html>
